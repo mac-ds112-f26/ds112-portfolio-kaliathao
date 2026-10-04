@@ -22,8 +22,8 @@ number-depth: 2
 
 book:
   title: "COMP/STAT212 Portfolio"
-  author: "Your Name Here"
-  date: today  # use today to update date published based on last time project was edited
+  author: "Kalia Thao"
+  date: Sept. 21, 2026  # use today to update date published based on last time project was edited
   date-format: full
   # favicon: path/to/favorite-logo.png
   reader-mode: true
@@ -45,7 +45,7 @@ book:
       # footer text
 
   sidebar:
-    title: "Your Name Here"
+    title: "Kalia Thao"
     logo: assets/sidebar-logo.png
     logo-alt: "Random negative space illustration"
     collapse-level: 2
@@ -77,6 +77,9 @@ book:
       chapters:
       - ica/ica-sample1.qmd
       - ica/ica-sample2.qmd
+      - ica/quarto-demo.qmd
+      - ica/03-univariate-viz-exercises.qmd
+      - ica/04-bivariate-viz-exercises.qmd
 
     - part: "Extras"
       chapters:
