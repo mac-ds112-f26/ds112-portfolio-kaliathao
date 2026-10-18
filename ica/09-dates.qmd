@@ -24,11 +24,20 @@ To comment/uncomment several lines of code at once, highlight them then click <k
 :::
 
 ```{r}
+library(tidyverse)
+penguins <- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-07-28/penguins.csv')
+
+# Check it out
+head(penguins)
+```
+
+
+```{r}
 # Create a dataset with just Adelie and Chinstrap using %in%
-# Pipe this into `count(species)` to confirm that you only have these 2 species
-# ___ |>
-#   filter(___) |>
-#   count(species)
+ Pipe this into `count(species)` to confirm that you only have these 2 species
+ ___ |>
+   filter(___) |>
+   count(species)
 ```
 
 ### ✏️ Filter with `!=`

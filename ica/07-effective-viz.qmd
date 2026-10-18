@@ -125,6 +125,8 @@ Color is another important accessibility consideration. Let's check out the colo
 -   Click the various simulator buttons (eg: Red-Weak/Protanomaly) to check out how the colors in this plot might appear to others.
 -   Summarize what you learn. What impact might our color choices have on one's ability to interpret the viz?
 
+> In a dichromatic or monochromatic view, it is hard to differentiate the colors from each other. Some colors looks similar, so the key is almsot useless and it is hard to see the differrent sections in the viz. 
+
 ### ✏️ Try Color-Blind Palettes
 
 We can change our color schemes! There are many [color-blind friendly palettes in R](https://cran.r-project.org/web/packages/colorBlindness/vignettes/colorBlindness.html). In the future, we'll set a default, more color-blind friendly color theme at the top of our Rmds. We can also do this individually for any plot that uses color. Run the chunks below to explore various options.

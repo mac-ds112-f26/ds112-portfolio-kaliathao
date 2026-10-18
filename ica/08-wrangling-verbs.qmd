@@ -269,10 +269,7 @@ BEFORE trying, what do you think will happen if you change the order of mutate a
 
 ```{r}
 # Now try it. Change the order of mutate and select below.
- elections_small |> 
-   filter(state_name == "Delaware") |> 
-  select(county_name, repub_pct_20, dem_pct_20, repub_win_20) |>
-   mutate(repub_win_20 = repub_pct_20 > dem_pct_20)
+
 ```
 
 > The results are different! This is because when we select first, we are choosing columns. And then when we choose these columns, we can't use the other ones we want to us for the mutate function.  
@@ -304,22 +301,21 @@ Create a new dataset named `mn_wi` that sorts the counties in Minnesota and Wisc
 
 
 mn_wi <- elections_small |>
-  filter(state_name) %in% c("Minnesota","Wisconsin")) |>
-  mutate(dem_pct_change = dem_)
+  filter(state_name %in% c("Minnesota","Wisconsin")) |>
+  mutate(dem_pct_change = dem_pct_20 - dem_pct_16) |> 
+  select(state_name, county_name, dem_pct_20, dem_pct_16, dem_pct_change) |> 
+  arrange(dem_pct_change)
 
 # Only store the results once you're confident that they're correct
 
 
 # Check out the first 6 rows to confirm your results
 
-```
-mn_wi <- elections_small |>
-  filter(state_name == "Minnesota", state_name == "Wisconsin") |>
-  select(county_name, state_name, dem_pct_20, dem_pct_16) |>
-    mutate(dem_diff = dem_pct_20 - dem_pct_16) |> 
-  arrange(dem_diff))
-  
 head(mn_wi)
+
+```
+  
+
 ### ✏️ Plot Dem Change
 
 Construct and discuss a plot of the county-level change in Democratic vote percent in 2020 vs 2016, and how this differs between Minnesota and Wisconsin.
@@ -328,7 +324,7 @@ Construct and discuss a plot of the county-level change in Democratic vote perce
 
 ```
 
-
+> Skip. 
 
 ## Summaries
 
@@ -340,20 +336,26 @@ Let's talk about the last 2 verbs. `summarize()` (or equivalently `summarise()`)
 
 ```{r}
 # What does this do?
-# elections_small |> 
-#   summarize(median(repub_pct_20))
+elections_small |>
+  summarize(median(repub_pct_20))
+
+# This summarizes the repopublic support percentage into one average number/value. 
 ```
 
 ```{r}
 # What does this do?
-# elections_small |> 
-#   summarize(median_repub = median(repub_pct_20))
+elections_small |>
+  summarize(median_repub = median(repub_pct_20))
+
+# This does the same summary as above, but it also sets/creates a column foe this information under "median_repub".
 ```
 
 ```{r}
 # What does this do?
-# elections_small |> 
-#   summarize(median_repub = median(repub_pct_20), total_votes = sum(total_votes_20))
+elections_small |>
+  summarize(median_repub = median(repub_pct_20), total_votes = sum(total_votes_20))
+
+# This summarizes the median of republic support in 2020 into one column named "median_repub" and it also created a column to find the sum of the total votes in 2020 and put it in a column called "total_votes". 
 ```
 
 
@@ -364,20 +366,20 @@ Let's talk about the last 2 verbs. `summarize()` (or equivalently `summarise()`)
 Finally, `group_by()` groups the units of observation or rows of a data frame by a specified set of variables. Alone, this function doesn't change the appearance of our dataset or seem to do anything at all:
 
 ```{r}
-# elections_small |> 
-#   group_by(state_name)
+elections_small |>
+  group_by(state_name)
 ```
 
 Though it does change the underlying structure of the dataset:
 
 ```{r}
 # Check out the structure before and after group_by
-# elections_small |> 
-#   class()
-# 
-# elections_small |> 
-#   group_by(state_name) |> 
-#   class()
+elections_small |>
+  class()
+
+elections_small |>
+  group_by(state_name) |>
+  class()
 ```
 
 Where it really shines is in partnership with `summarize()`.
@@ -385,16 +387,18 @@ Where it really shines is in partnership with `summarize()`.
 ```{r}
 # What does this do?
 # (What if we didn't use group_by?)
-# elections_small |> 
-#   group_by(state_name) |> 
-#   summarize(median_repub = median(repub_pct_20), total_votes = sum(total_votes_20)) 
+elections_small |>
+  group_by(state_name) |>
+  summarize(median_repub = median(repub_pct_20), total_votes = sum(total_votes_20))
+
+# The order is just by state and alphabetical order
 ```
 
 ::: {.callout-warning title="Reflect"}
 Notice that `group_by()` with `summarize()` produces a new data frame or tibble! But the units of observation are now states instead of counties within states.
 :::
 
-
+> 'Group_by' puts the obervations (wors) into groups and arranges the rows. 'Summarize" gives a summary of info and be used to create new collumns 
 
 ### ✏️ Sort States by Votes
 
