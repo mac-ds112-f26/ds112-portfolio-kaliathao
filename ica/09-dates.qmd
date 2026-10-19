@@ -34,9 +34,10 @@ head(penguins)
 
 ```{r}
 # Create a dataset with just Adelie and Chinstrap using %in%
- Pipe this into `count(species)` to confirm that you only have these 2 species
- ___ |>
-   filter(___) |>
+# Pipe this into `count(species)` to confirm that you only have these 2 species
+
+penguins |>
+   filter(species %in% c("Adelie", "Chinstrap")) |>
    count(species)
 ```
 
@@ -45,9 +46,12 @@ head(penguins)
 ```{r}
 # Create a dataset with just Adelie and Chinstrap using !=
 # Pipe this into `count(species)` to confirm that you only have these 2 species
-# ___ |>
-#   filter(___) |>
-#   count(species)
+
+penguins |>
+  filter(species != "Gentoo") |>
+  count(species)
+
+# != means "not equal to", so we need to set it with "Gentoo" to exclude this species from our wrangling
 ```
 
 ### ✏️ Explore Missing Data
@@ -70,6 +74,8 @@ Suppose our research focus is *just* on `body_mass_g`. Two penguins are missing 
 # NOTE the use of is.na()
 penguins |>
   summarize(sum(is.na(body_mass_g)))
+
+# I think this is showing us how many penguins have N/A as their body mass
 ```
 
 Let's define a new dataset that removes these penguins:
@@ -79,9 +85,13 @@ Let's define a new dataset that removes these penguins:
 penguins_w_body_mass <- penguins |>
   filter(!is.na(body_mass_g))
 
+# I think this is telling us to filter out the N/A rows in our dataset 
+
 # Compare the number of penguins in this vs the original data
 nrow(penguins_w_body_mass)
 nrow(penguins)
+
+# This code tells us all of the rows, so now we can compare the two
 ```
 
 Note that some penguins in `penguins_w_body_mass` are missing info on `sex`, but we don't care since that's not related to our research question:
@@ -89,6 +99,8 @@ Note that some penguins in `penguins_w_body_mass` are missing info on `sex`, but
 ```{r}
 penguins_w_body_mass |>
   summarize(sum(is.na(sex)))
+
+# This shows that 9 rows are missing/have N/A in the 'sex' column 
 ```
 
 **Example 2**
@@ -98,6 +110,8 @@ In the *very rare case* that we need complete information on every variable for 
 ```{r}
 penguins_complete <- penguins |>
   na.omit()
+
+# We omitted 11 penguins because 11 penguins had N/A values (missing values)
 ```
 
 How many penguins did this eliminate?
@@ -105,16 +119,15 @@ How many penguins did this eliminate?
 ```{r}
 nrow(penguins_complete)
 nrow(penguins)
+
+# 11 penguins!
 ```
 
 ### ✏️ Explain `na.omit()` Risk
 
 Explain why we should only use `na.omit()` in extreme circumstances.
 
-\
-\
-\
-\
+> We should use this code to omit only in rare circumstances because we are literally exlcuding observations. This could create bias/make us lose too many 
 
 ### ✏️ Drop Year & Island
 
@@ -133,7 +146,12 @@ names(penguins)
 Use a shortcut to keep everything but the year and island variables.
 
 ```{r}
+remove_penguins <- penguins |> 
+  select(-year, -island)
 
+names(remove_penguins)
+
+# I did it!
 ```
 
 
@@ -142,7 +160,8 @@ Use a shortcut to keep everything but the year and island variables.
 Use a shortcut to keep only species and the penguin characteristics measured in mm.
 
 ```{r}
-
+penguins |>
+  select(species, ends_with("mm"))
 ```
 
 
@@ -151,7 +170,8 @@ Use a shortcut to keep only species and the penguin characteristics measured in 
 Use a shortcut to keep only species and bill-related measurements.
 
 ```{r}
-
+penguins |> 
+  select(species, starts_with("bill"))
 ```
 
 
@@ -160,7 +180,8 @@ Use a shortcut to keep only species and bill-related measurements.
 Use a shortcut to keep only species and the length-related characteristics.
 
 ```{r}
-
+penguins |> 
+  select(species, contains("length"))
 ```
 
 \
