@@ -1,0 +1,139 @@
+---
+title: "My first Quarto document"
+---
+
+## Intro
+
+
+**Macalester College** is in the *Twin Cities*.
+It has:
+
+- four seasons
+- bagpipes
+- delightful students
+
+Check it out for yourself:
+
+![](https://www.macalester.edu/about/wp-content/uploads/sites/191/2019/12/campusmap336.png)
+
+
+
+
+
+## Exercise 1: Deduce Quarto features
+
+Check out the appearance and contents of this document. Thoughts?
+
+  It looks like a normal webpage. Some words are bolded and are made to stand out. There are different text sizes too for emphasis. 
+
+In the toolbar at the top of this document, **Render** the .qmd file into a .html file. Where is this file stored? Thoughts about its appearance / contents? Can you edit it?
+
+  This file is stored in my ica folder (which is then in my portfolio). The appearance is plain and it's contents are informational. I can edit it here. To see my changes, I render it again. 
+
+Toggling between the .qmd and .html files, explain the purpose of the following features in the .qmd file:        
+
+`*` *test*
+This one *italics* the word between. 
+
+`**` **test**
+This one **bolds** the word between. 
+
+`#` #test
+This one doesn't change the word's appearance. The # symbol just shows up where I typed it. 
+
+`-` -test- -test
+This one doesn't change the appearance of the word, The dashes show up where I typed them. 
+
+`\` \test\ \test \\test\\
+Only the first test showed up. The others disappeared. The backward slashes don't change the appearance of the word. 
+
+`![](url)` ![test](http://localhost:7424)
+This one put the word in the brackets into a box. It might work as a link? Maybe I didn't do it right...
+
+
+
+## Exercise 2: Code
+
+How does this appear in the .qmd? The .html? So...?!
+
+seq(from = 100, to = 1000, by = 50)
+ This is a code, but it doesn't work/do the code here. It doesn't show up as it's supposed to on the .html either. 
+
+
+## Exercise 3: Chunks
+
+Quarto isn't a mind reader -- we must distinguish R code from text.
+We do so by putting code inside an **R chunk**:
+
+```{r}
+seq(from = 100, to = 1000, by = 50)
+```
+
+- Put the `seq()` code in the chunk.
+- Press the green arrow in the top right of the chunk. What happens in the qmd?
+In the qmd, the code works! It's doing what it's suppposed to do. 
+- Render. What appears in the html: R code, output, or both?
+Both! I see the R code and the outputs. 
+
+
+## Exercise 4: Practice
+
+- Use R code to create the following sequence: 10 10 10 10
+- Store the sequence as `four_tens`.
+- Use an R function (which we haven't learned!) to add up the numbers in `four_tens`.
+```{r}
+rep(t=4, x=10)
+```
+```{r}
+four_tens<-rep(t=4, x=10)
+```
+```{r}
+four_tens
+```
+```{r}
+10+10+10+10
+```
+```{r}
+sum(rep(t=4,x=10))
+```
+
+
+
+
+## Exercise 5: Fix this code
+
+Code is a form of communication, and the code below doesn't cut it.
+
+Put the code in a chunk and fix it.
+
+Rep(x = 1, times = 10)
+seq(from=100,to=1000,length=20)
+theNumberofStudentsinthisclass<-27
+
+```{r}
+rep(x = 1, times = 10)
+seq(from=100,to=1000,length=20)
+sclassnum<-27
+```
+
+
+## Exercise 6: Comments
+
+Run the chunk below.
+Notice that R ignores anything in a line starting with a pound sign (`#`).
+If we took the `#` away we'd get an error!
+
+```{r}
+# This is a comment
+4 + 5
+```
+
+We'll utilize this feature to **comment our code**, i.e. leave short notes about what our code is doing.
+Below, replace the `???` with an appropriate comment.
+
+```{r}
+# Storing the temps
+temperature_c <- 10
+temperature_f <- temperature_c * 9/5 + 32
+temperature_f
+```
